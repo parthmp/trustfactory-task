@@ -19,7 +19,8 @@ class ProductFactory extends Factory
         return [
             'product_name'		=>	$this->faker->unique()->words(3, true),
 			'price'				=>	$this->faker->randomFloat(2, 10, 1000),
-			'stock_quantity'	=>	$this->faker->numberBetween(0, 500)
+			'stock_quantity'	=>	$this->faker->numberBetween(0, 500),
+			'image_url'			=>	'https://picsum.photos/300/300'
         ];
     }
 }
