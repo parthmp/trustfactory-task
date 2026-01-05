@@ -18,7 +18,7 @@
 
 <template>
 	<div class="">
-		<img :src="data.image_url" alt="product-image" class="w-full rounded-xl pb-4">
+		<img :src="data.image_url+'?id='+Math.random()" alt="product-image" class="w-full rounded-xl pb-4">
 		<p class="text-xl text-center">{{ data.product_name }}</p>
 		<p class="text-center">{{ currencySymbol }} {{ data.price }}</p>
 		<p v-if="data.stock_quantity > 0" class="text-center">In stock</p>
