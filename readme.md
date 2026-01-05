@@ -21,7 +21,6 @@ This is a demo e-commerce application built with Laravel 12 + Inertia.js + Vue 3
   * Order creation with order items
   * Automatic stock deduction upon successful checkout
   * Cart clearing after order completion
-  * All operations wrapped in database transactions
 * **Admin Notifications:**
   * Low stock email alerts when product quantity drops below 10 (via Laravel command)
   * Daily sales report sent at 11:59 PM via Laravel scheduler
@@ -111,5 +110,5 @@ Test coverage includes:
 * This is a demo task, so some areas (e.g., full unit test coverage, UI polish) are simplified
 * Uses Inertia.js + Vue 3 + Tailwind CSS for frontend SPA-like behavior
 * Flash notifications are handled via `vue-sonner`
-* All critical actions are transaction-safe
+* Demonstration of transaction-safe critical actions 
 * Uses `brick/math` library for precise monetary calculations to prevent floating-point arithmetic errors in cart totals and pricing
