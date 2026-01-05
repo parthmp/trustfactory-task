@@ -25,12 +25,6 @@ interface Props {
   error?: string;
 }
 
- interface CartItemsInterface{
-	items : Array<object>,
-	summary : object
- }
-
-
 withDefaults(
     defineProps<Props>(),
     {
@@ -87,7 +81,7 @@ const checkout = () : void => {
 					</TableRow>
 					</TableHeader>
 					<TableBody>
-						<TableRow v-for="(item, index) in cartItems.items" :key="item.id">
+						<TableRow v-for="item in cartItems.items" :key="item.id">
 							<TableCell class="font-medium">
 							{{item.product.product_name}}
 							</TableCell>
