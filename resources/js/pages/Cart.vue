@@ -3,7 +3,8 @@
 import CartAppLayout from '@/layouts/app/CartAppLayout.vue';
 import Card from '@/components/ui/card/Card.vue';
 import Button from '@/components/ui/button/Button.vue';
-import { router, usePage, Link } from '@inertiajs/vue3';
+import { router, Link } from '@inertiajs/vue3';
+import type { CartResponse } from '@/types/cart';
 
 import {
   Table,
@@ -16,14 +17,22 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
+interface Props {
+  canRegister?: boolean;
+  currencySymbol: string;
+  cartItemsNumber: number;
+  cartItems: CartResponse;
+  error?: string;
+}
+
+ interface CartItemsInterface{
+	items : Array<object>,
+	summary : object
+ }
+
+
 withDefaults(
-    defineProps<{
-		canRegister?: boolean,
-		error:string,
-		currencySymbol:string,
-		cartItemsNumber : number,
-		cartItems : Array<object>|object
-    }>(),
+    defineProps<Props>(),
     {
 		canRegister: true,
         cartItemsNumber: 0,
@@ -41,6 +50,7 @@ const modifyCart = (productId: number, operation: string) : void => {
 const checkout = () : void => {
 	router.get('/cart/checkout');
 }
+
 
 </script>
 
@@ -77,7 +87,7 @@ const checkout = () : void => {
 					</TableRow>
 					</TableHeader>
 					<TableBody>
-						<TableRow v-for="(item, index) in cartItems.items">
+						<TableRow v-for="(item, index) in cartItems.items" :key="item.id">
 							<TableCell class="font-medium">
 							{{item.product.product_name}}
 							</TableCell>

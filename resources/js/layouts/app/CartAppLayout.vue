@@ -8,7 +8,7 @@ import { onMounted, watch } from 'vue';
 import { toast } from 'vue-sonner';
 
 
-const props = withDefaults(
+withDefaults(
     defineProps<{
         canRegister: boolean;
 		products : Array<ProductType>

@@ -86,6 +86,12 @@ class CartService {
 
 	}
 
+	/**
+	 * makeItEmpty function
+	 *
+	 * @param integer $userId
+	 * @return void
+	 */
 	public function makeItEmpty(int $userId){
 		$this->cartRepository->makeItEmpty($userId);
 	}

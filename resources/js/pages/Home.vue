@@ -27,8 +27,8 @@ withDefaults(
 		<section>
 			<p v-if="error !== ''" class="text-red-500">{{ error }}</p>
 			<div class="grid grid-cols-12 gap-5 mt-10">
-				<div v-for="(product, index) in products" class="col-span-12 mb-5 sm:col-span-6 md:col-span-4 lg:col-span-3">
-					<Product :data="product" :currencySymbol="currencySymbol" :key="index"></Product>
+				<div v-for="(product, index) in products" class="col-span-12 mb-5 sm:col-span-6 md:col-span-4 lg:col-span-3" :key="product.id">
+					<Product :data="product" :currencySymbol="currencySymbol"></Product>
 				</div>
 			</div>
 		</section>
