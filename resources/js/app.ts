@@ -1,10 +1,13 @@
 import '../css/app.css';
+import 'vue-sonner/style.css'
 
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import type { DefineComponent } from 'vue';
 import { createApp, h } from 'vue';
 import { initializeTheme } from './composables/useAppearance';
+import { Toaster } from 'vue-sonner'
+
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -18,6 +21,7 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         createApp({ render: () => h(App, props) })
             .use(plugin)
+			.component('Toaster', Toaster)
             .mount(el);
     },
     progress: {

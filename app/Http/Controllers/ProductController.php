@@ -30,7 +30,7 @@ class ProductController extends Controller {
 				'products'			=>	$products,
 				'currencySymbol'	=> 	config('constants.currency_symbol'),
 				'error'				=>	$error,
-				'cartItemsNumber'	=>	$this->productService->fetchCartItemsNumber(1)
+				'cartItemsNumber'	=>	$this->productService->fetchCartItemsNumber((int) auth()->id())
 			]);
 		
 

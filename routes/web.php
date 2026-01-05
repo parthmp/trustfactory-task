@@ -17,7 +17,9 @@ use Laravel\Fortify\Features;
 Route::get('/', [ProductController::class, 'index'])->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function(){
-	Route::post('cart/add', [CartController::class, 'store']);
+	Route::post('cart/modify', [CartController::class, 'store']);
+	Route::get('cart', [CartController::class, 'show']);
+	Route::get('cart/checkout', [CartController::class, 'checkout']);
 });
 
 Route::get('dashboard', function () {

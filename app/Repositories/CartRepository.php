@@ -16,7 +16,7 @@ class CartRepository {
 	 * @return integer
 	 */
 	public function getCartItemsByUserId(int $userId) : int {
-		return (int) CartItem::where('user_id', '=', $userId)->count();
+		return (int) CartItem::where('user_id', '=', $userId)->sum('quantity');
 	}
 
 	/**
@@ -25,7 +25,7 @@ class CartRepository {
 	 * @param integer $productId
 	 * @return CartItem|null
 	 */
-	public function fetchCartItemsByProductAndUserId(int $userId, int $productId) : CartItem|null {
+	public function fetchCartItemByProductAndUserId(int $userId, int $productId) : CartItem|null {
 		return CartItem::where([['user_id', '=', $userId], ['product_id', '=', $productId]])->first();
 	}
 
@@ -34,16 +34,21 @@ class CartRepository {
 	 *
 	 * @param integer $userId
 	 * @param integer $productId
-	 * @return boolean
+	 * @return CartItem
 	 */
-	public function createNewCartItem(int $userId, int $productId) : bool {
-
-		$cartItem = new CartItem();
-		$cartItem->user_id = $userId;
-		$cartItem->product_id = $productId;
-		$cartItem->quantity = 1;
-
-		return $cartItem->save();
+	public function firstOrCreateCartItem(int $userId, int $productId) : CartItem {
+		
+		$cartItem = CartItem::where([['user_id', '=', $userId], ['product_id', '=', $productId]])->first();
+    
+		if(!$cartItem){
+			$cartItem = new CartItem();
+			$cartItem->user_id = $userId;
+			$cartItem->product_id = $productId;
+			$cartItem->quantity = 0;
+			$cartItem->save();
+		}
+		
+		return $cartItem;
 
 	}
 
@@ -52,30 +57,26 @@ class CartRepository {
 	 *
 	 * @param CartItem $cartItem
 	 * @param integer $quantity
-	 * @return boolean
+	 * @return CartItem
 	 */
-	public function updateCartItem(CartItem $cartItem, int $quantity) : bool {
+	public function updateCartItem(CartItem $cartItem, int $quantity) : CartItem {
 		$cartItem->quantity = $quantity;
-		return $cartItem->save();
+		$cartItem->save();
+		return $cartItem;
+	}
+
+	public function removeCartItem(CartItem $cartItem){
+		$cartItem->delete();
 	}
 
 	/**
-	 * addToCart function
+	 * makeItEmpty function
 	 *
 	 * @param integer $userId
-	 * @param integer $productId
-	 * @param integer $quantity
-	 * @return boolean
+	 * @return void
 	 */
-	public function addToCart(int $userId, int $productId, int $quantity) : bool {
-
-		$cartItem = $this->fetchCartItemsByProductAndUserId($userId, $productId);
-
-		if(!$cartItem){
-			return $this->createNewCartItem($userId, $productId);
-		}
-
-		return $this->updateCartItem($cartItem, $quantity);
+	public function makeItEmpty(int $userId){
+		CartItem::where('user_id', '=', $userId)->delete();
 	}
 
 }
