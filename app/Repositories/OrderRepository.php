@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Order;
 use App\Models\OrderItem;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * OrderRepository class
@@ -25,9 +26,18 @@ class OrderRepository {
 		$order->save();
 		return $order;
 	}
-
+	
 	public function addOrderItems(array $items){
 		OrderItem::insert($items);
+	}
+
+	/**
+	 * fetchTodaysOrders function
+	 *
+	 * @return Collection
+	 */
+	public function fetchTodaysOrders() : Collection {
+		return Order::with('items.product')->whereDate('created_at', now()->toDateString())->get();
 	}
 
 }

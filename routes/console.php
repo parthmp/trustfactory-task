@@ -12,3 +12,5 @@ Artisan::command('inspire', function () {
  * every fifteen minutes it will check for stocks that are low and send an email to dummy admin
  */
 Schedule::command('stock:notify-low')->everyFifteenMinutes();
+
+Schedule::command('report:daily-sales')->dailyAt('23:59')->withoutOverlapping();
