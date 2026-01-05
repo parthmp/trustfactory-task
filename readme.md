@@ -35,8 +35,8 @@ This is a demo e-commerce application built with Laravel 12 + Inertia.js + Vue 3
 1. Clone the repository:
 
 ```bash
-git clone <your-repo-link>
-cd <repo-folder>
+git clone https://github.com/parthmp/trustfactory-task/
+cd trustfactory-task
 ```
 
 2. Install dependencies:
@@ -105,7 +105,6 @@ Test coverage includes:
 * Adding items to cart with stock validation
 * Quantity validation logic
 * Stock availability checks
-* Cart-to-order conversion
 
 ## Technical Notes
 
