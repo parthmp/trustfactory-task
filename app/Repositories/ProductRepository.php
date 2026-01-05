@@ -55,4 +55,25 @@ class ProductRepository {
 		return $product->save();
 	}
 
+	/**
+	 * getLowStockProducts function
+	 *
+	 * @return Collection
+	 */
+	public function getLowStockProducts(): Collection {
+        return Product::where('stock_quantity', '<', config('constants.low_stock_threshold'))->whereNull('low_stock_notified_at')->get();
+    }
+
+	/**
+	 * updateProductNotifiedAt function
+	 *
+	 * @param Product $product
+	 * @param string $datetime
+	 * @return boolean
+	 */
+	public function updateProductNotifiedAt(Product $product, string $datetime) : bool {
+		$product->low_stock_notified_at = $datetime;
+		return $product->save();
+	}
+
 }
